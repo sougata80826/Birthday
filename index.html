@@ -14,24 +14,38 @@
             overflow: hidden;
         }
 
-        h1 {
-            font-size: 3rem;
+        h1, h2, p {
             color: #ff69b4;
-            margin-top: 20px;
+            margin: 20px;
             text-shadow: 2px 2px #ffa07a;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .login-section, .home-section {
             animation: fadeIn 2s ease-out;
         }
 
+        .input-field {
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff69b4;
+            border-radius: 5px;
+            width: 250px;
+        }
+
         .button {
-            margin-top: 50px;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
+            padding: 10px 20px;
+            font-size: 16px;
             color: #fff;
             background: linear-gradient(45deg, #ff1493, #ff4500);
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             animation: pulse 1.5s infinite;
         }
@@ -40,32 +54,13 @@
             transform: scale(1.1);
         }
 
-        /* Keyframes for animation */
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
         /* Floating balloons */
         .balloon {
             position: absolute;
             width: 50px;
             height: 70px;
             background: #ff69b4;
-            border-radius: 50% 50% 50% 50%;
+            border-radius: 50%;
             animation: float 5s ease-in-out infinite;
         }
 
@@ -81,46 +76,58 @@
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-30px) rotate(3deg);
-            }
-            100% {
-                transform: translateY(0) rotate(-3deg);
-            }
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(3deg); }
+            100% { transform: translateY(0) rotate(-3deg); }
         }
 
-        /* Different colored balloons */
-        .balloon:nth-child(1) {
-            background: #ff69b4;
-            left: 20%;
-            animation-duration: 6s;
+        .balloon:nth-child(1) { left: 20%; animation-duration: 6s; }
+        .balloon:nth-child(2) { left: 50%; animation-duration: 7s; }
+        .balloon:nth-child(3) { left: 80%; animation-duration: 5s; }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .balloon:nth-child(2) {
-            background: #ff4500;
-            left: 50%;
-            animation-duration: 7s;
-        }
-
-        .balloon:nth-child(3) {
-            background: #ffa500;
-            left: 80%;
-            animation-duration: 5s;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
     </style>
 </head>
 <body>
-    <h1>🎉 Happy Birthday, Love! 🎉</h1>
+    <!-- Login Section -->
+    <div class="login-section" id="login-section">
+        <h1>🎉 Welcome to the Birthday Surprise 🎉</h1>
+        <p>Please enter the name of your husband/would-be:</p>
+        <input type="text" class="input-field" id="name-input" placeholder="Enter name here...">
+        <button class="button" onclick="validateName()">Next</button>
 
-    <button class="button" onclick="openCakeTemplate()">Open Your Surprise 🎂</button>
+        <div class="hidden" id="password-section">
+            <p>Enter the boyfriend's birthday (dd/mm/yyyy):</p>
+            <input type="password" class="input-field" id="password-input" placeholder="dd/mm/yyyy">
+            <button class="button" onclick="validatePassword()">Login</button>
+        </div>
+    </div>
 
-    <!-- Balloons -->
-    <div class="balloon"></div>
-    <div class="balloon"></div>
-    <div class="balloon"></div>
+    <!-- Home Section -->
+    <div class="home-section hidden" id="home-section">
+        <h1>🎉 Happy Birthday, Love! 🎉</h1>
+        <h2>May your day be as beautiful as you are!</h2>
+        <p>Here’s your special surprise filled with love and joy. 💖</p>
+
+        <!-- Balloons -->
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+
+        <!-- Buttons for Love Messages -->
+        <button class="button" onclick="showMessage('I love you more than words can say!')">💖 Love Message 1</button>
+        <button class="button" onclick="showMessage('You are my sunshine, always and forever!')">💖 Love Message 2</button>
+        <button class="button" onclick="showMessage('I am the luckiest person to have you!')">💖 Love Message 3</button>
+    </div>
 
     <!-- Background music -->
     <audio autoplay loop>
@@ -129,8 +136,31 @@
     </audio>
 
     <script>
-        function openCakeTemplate() {
-            window.open('https://www.example.com/birthday-cake-template', '_blank');
+        // Validate Name
+        function validateName() {
+            const name = document.getElementById("name-input").value.toLowerCase().replace(/\s/g, "");
+            const validNames = ["sougata", "sougata patra", "sougata patra"];
+            if (validNames.includes(name)) {
+                document.getElementById("password-section").classList.remove("hidden");
+            } else {
+                alert("Please enter the correct name!");
+            }
+        }
+
+        // Validate Password
+        function validatePassword() {
+            const password = document.getElementById("password-input").value;
+            if (password === "20/07/2001") {
+                document.getElementById("login-section").classList.add("hidden");
+                document.getElementById("home-section").classList.remove("hidden");
+            } else {
+                alert("Incorrect password! Please try again.");
+            }
+        }
+
+        // Show Love Message
+        function showMessage(message) {
+            alert(message);
         }
     </script>
 </body>
