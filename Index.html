@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background-color: #ffebcd;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff69b4;
+            margin-top: 20px;
+            text-shadow: 2px 2px #ffa07a;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .button {
+            margin-top: 50px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff1493, #ff4500);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            animation: pulse 1.5s infinite;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Keyframes for animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Floating balloons */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: #ff69b4;
+            border-radius: 50% 50% 50% 50%;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .balloon:before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: #333;
+            transform: translateX(-50%);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(3deg);
+            }
+            100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+        }
+
+        /* Different colored balloons */
+        .balloon:nth-child(1) {
+            background: #ff69b4;
+            left: 20%;
+            animation-duration: 6s;
+        }
+
+        .balloon:nth-child(2) {
+            background: #ff4500;
+            left: 50%;
+            animation-duration: 7s;
+        }
+
+        .balloon:nth-child(3) {
+            background: #ffa500;
+            left: 80%;
+            animation-duration: 5s;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Happy Birthday, Love! 🎉</h1>
+
+    <button class="button" onclick="openCakeTemplate()">Open Your Surprise 🎂</button>
+
+    <!-- Balloons -->
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+
+    <!-- Background music -->
+    <audio autoplay loop>
+        <source src="https://www.example.com/happy-birthday-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        function openCakeTemplate() {
+            window.open('https://www.example.com/birthday-cake-template', '_blank');
+        }
+    </script>
+</body>
+</html>
