@@ -14,7 +14,7 @@
             overflow: hidden;
         }
 
-        h1, h2, p {
+        h1, p {
             color: #ff69b4;
             margin: 20px;
             text-shadow: 2px 2px #ffa07a;
@@ -22,10 +22,6 @@
 
         .hidden {
             display: none;
-        }
-
-        .login-section, .home-section {
-            animation: fadeIn 2s ease-out;
         }
 
         .input-field {
@@ -47,120 +43,73 @@
             cursor: pointer;
             margin-top: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            animation: pulse 1.5s infinite;
         }
 
         .button:hover {
             transform: scale(1.1);
         }
-
-        /* Floating balloons */
-        .balloon {
-            position: absolute;
-            width: 50px;
-            height: 70px;
-            background: #ff69b4;
-            border-radius: 50%;
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .balloon:before {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            width: 2px;
-            height: 20px;
-            background: #333;
-            transform: translateX(-50%);
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(3deg); }
-            100% { transform: translateY(0) rotate(-3deg); }
-        }
-
-        .balloon:nth-child(1) { left: 20%; animation-duration: 6s; }
-        .balloon:nth-child(2) { left: 50%; animation-duration: 7s; }
-        .balloon:nth-child(3) { left: 80%; animation-duration: 5s; }
-
-        /* Keyframes for animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
     </style>
+
+    <!-- SweetAlert2 Library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <!-- Login Section -->
-    <div class="login-section" id="login-section">
+    <div id="login-section">
         <h1>🎉 Welcome to the Birthday Surprise 🎉</h1>
-        <p>Please enter the name of your husband/would-be:</p>
-        <input type="text" class="input-field" id="name-input" placeholder="Enter name here...">
+        <p>Please enter your username:</p>
+        <input type="text" class="input-field" id="name-input" placeholder="Enter username here...">
         <button class="button" onclick="validateName()">Next</button>
 
         <div class="hidden" id="password-section">
-            <p>Enter the boyfriend's birthday (dd/mm/yyyy):</p>
+            <p>Enter your boyfriend's birthday (dd/mm/yyyy):</p>
             <input type="password" class="input-field" id="password-input" placeholder="dd/mm/yyyy">
             <button class="button" onclick="validatePassword()">Login</button>
         </div>
     </div>
 
-    <!-- Home Section -->
-    <div class="home-section hidden" id="home-section">
-        <h1>🎉 Happy Birthday, Love! 🎉</h1>
-        <h2>May your day be as beautiful as you are!</h2>
-        <p>Here’s your special surprise filled with love and joy. 💖</p>
-
-        <!-- Balloons -->
-        <div class="balloon"></div>
-        <div class="balloon"></div>
-        <div class="balloon"></div>
-
-        <!-- Buttons for Love Messages -->
-        <button class="button" onclick="showMessage('I love you more than words can say!')">💖 Love Message 1</button>
-        <button class="button" onclick="showMessage('You are my sunshine, always and forever!')">💖 Love Message 2</button>
-        <button class="button" onclick="showMessage('I am the luckiest person to have you!')">💖 Love Message 3</button>
-    </div>
-
-    <!-- Background music -->
-    <audio autoplay loop>
-        <source src="https://www.example.com/happy-birthday-song.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
     <script>
-        // Validate Name
+        // Validate Name with SweetAlert
         function validateName() {
-            const name = document.getElementById("name-input").value.toLowerCase().replace(/\s/g, "");
+            const name = document.getElementById("name-input").value.trim().toLowerCase();
             const validNames = ["sougata", "sougata patra", "sougata patra"];
             if (validNames.includes(name)) {
                 document.getElementById("password-section").classList.remove("hidden");
             } else {
-                alert("Please enter the correct name!");
+                // SweetAlert for incorrect name
+                Swal.fire({
+                    title: "Oops!",
+                    text: "Please enter your husband's name (e.g., Sougata Patra).",
+                    icon: "error",
+                    confirmButtonText: "Try Again",
+                    confirmButtonColor: "#ff69b4"
+                });
             }
         }
 
         // Validate Password
         function validatePassword() {
-            const password = document.getElementById("password-input").value;
+            const password = document.getElementById("password-input").value.trim();
             if (password === "20/07/2001") {
-                document.getElementById("login-section").classList.add("hidden");
-                document.getElementById("home-section").classList.remove("hidden");
+                Swal.fire({
+                    title: "Welcome!",
+                    text: "Let's go to the surprise page!",
+                    icon: "success",
+                    confirmButtonText: "Continue",
+                    confirmButtonColor: "#ff69b4"
+                }).then(() => {
+                    document.getElementById("login-section").classList.add("hidden");
+                    document.getElementById("home-section").classList.remove("hidden");
+                });
             } else {
-                alert("Incorrect password! Please try again.");
+                Swal.fire({
+                    title: "Incorrect Password!",
+                    text: "Please try again with the correct format (dd/mm/yyyy).",
+                    icon: "error",
+                    confirmButtonText: "Try Again",
+                    confirmButtonColor: "#ff69b4"
+                });
             }
-        }
-
-        // Show Love Message
-        function showMessage(message) {
-            alert(message);
         }
     </script>
 </body>
