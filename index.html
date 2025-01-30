@@ -43,6 +43,7 @@
       cursor: pointer;
       border-radius: 5px;
       font-size: 1rem;
+      display: none;
     }
     button:hover {
       background-color: #ff70a6;
@@ -64,29 +65,27 @@
 <body>
   <h1>Welcome to Your Birthday Surprise! 🎉</h1>
   <p>We have something special for you, but first, let's log in!</p>
-  
-  <div class="login-section">
-    <input type="text" id="username" placeholder="Enter Username" required>
-    <input type="password" id="password" placeholder="Enter Password (Hint: Your birthdate)" required>
-    <button onclick="handleLogin()">Login</button>
-  </div>
 
-  <div class="notes-container" id="notes-container" style="display: none;">
-    <div class="note-box">Happy Birthday, my love! 🥰 I hope this day is as wonderful as you are!</div>
-    <div class="note-box">You are the light of my life and my greatest joy. Thank you for being you! 🌟</div>
-    <div class="note-box">Every day with you is a beautiful memory. Here's to many more birthdays together! ❤️</div>
+  <div class="login-section">
+    <input type="text" id="username" placeholder="Enter Username" required oninput="showLoginButton()">
+    <input type="password" id="password" placeholder="Enter Password (Hint: Your birthdate)" required>
+    <button id="loginButton" onclick="handleLogin()">Login</button>
   </div>
 
   <script>
+    function showLoginButton() {
+      document.getElementById('loginButton').style.display = 'block';
+    }
+
     function handleLogin() {
       const validUsernames = ["sougata", "sougata patra", "bubu", "bubun", "Sougata Patra", "sougata patra", "sougataPatra", "SougataPatra"];
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
-      
+
       if (validUsernames.includes(username)) {
         if (password === "17/02/2002") {
           alert("Login successful! Welcome, love! 💕");
-          document.getElementById('notes-container').style.display = 'block';
+          window.location.href = "birthday_message.html";
         } else {
           alert("Incorrect password! Hint: Your birthdate.");
         }
