@@ -1,116 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <style>
-        /* General styles */
-        body {
-            margin: 0;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-align: center;
-            background-color: #ffebcd;
-            overflow: hidden;
-        }
-
-        h1, p {
-            color: #ff69b4;
-            margin: 20px;
-            text-shadow: 2px 2px #ffa07a;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .input-field {
-            margin: 10px auto;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ff69b4;
-            border-radius: 5px;
-            width: 250px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background: linear-gradient(45deg, #ff1493, #ff4500);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .button:hover {
-            transform: scale(1.1);
-        }
-    </style>
-
-    <!-- SweetAlert2 Library -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ffe0f7;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #ff4081;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #333;
+    }
+    .login-section {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff3f8;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    input[type="text"], input[type="password"] {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 200px;
+    }
+    button {
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #ff70a6;
+    }
+    .notes-container {
+      margin-top: 20px;
+    }
+    .note-box {
+      background-color: #fddde6;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 10px auto;
+      max-width: 400px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body>
-    <!-- Login Section -->
-    <div id="login-section">
-        <h1>🎉 Welcome to the Birthday Surprise 🎉</h1>
-        <p>Please enter your username:</p>
-        <input type="text" class="input-field" id="name-input" placeholder="Enter username here...">
-        <button class="button" onclick="validateName()">Next</button>
+  <h1>Welcome to Your Birthday Surprise! 🎉</h1>
+  <p>We have something special for you, but first, let's log in!</p>
+  
+  <div class="login-section">
+    <input type="text" id="username" placeholder="Enter Username" required>
+    <input type="password" id="password" placeholder="Enter Password (Hint: Your birthdate)" required>
+    <button onclick="handleLogin()">Login</button>
+  </div>
 
-        <div class="hidden" id="password-section">
-            <p>Enter your boyfriend's birthday (dd/mm/yyyy):</p>
-            <input type="password" class="input-field" id="password-input" placeholder="dd/mm/yyyy">
-            <button class="button" onclick="validatePassword()">Login</button>
-        </div>
-    </div>
+  <div class="notes-container" id="notes-container" style="display: none;">
+    <div class="note-box">Happy Birthday, my love! 🥰 I hope this day is as wonderful as you are!</div>
+    <div class="note-box">You are the light of my life and my greatest joy. Thank you for being you! 🌟</div>
+    <div class="note-box">Every day with you is a beautiful memory. Here's to many more birthdays together! ❤️</div>
+  </div>
 
-    <script>
-        // Validate Name with SweetAlert
-        function validateName() {
-            const name = document.getElementById("name-input").value.trim().toLowerCase();
-            const validNames = ["sougata", "sougata patra", "sougata patra"];
-            if (validNames.includes(name)) {
-                document.getElementById("password-section").classList.remove("hidden");
-            } else {
-                // SweetAlert for incorrect name
-                Swal.fire({
-                    title: "Oops!",
-                    text: "Please enter your husband's name (e.g., Sougata Patra).",
-                    icon: "error",
-                    confirmButtonText: "Try Again",
-                    confirmButtonColor: "#ff69b4"
-                });
-            }
+  <script>
+    function handleLogin() {
+      const validUsernames = ["sougata", "sougata patra", "bubu", "bubun", "Sougata Patra", "sougata patra", "sougataPatra", "SougataPatra"];
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      
+      if (validUsernames.includes(username)) {
+        if (password === "17/02/2002") {
+          alert("Login successful! Welcome, love! 💕");
+          document.getElementById('notes-container').style.display = 'block';
+        } else {
+          alert("Incorrect password! Hint: Your birthdate.");
         }
-
-        // Validate Password
-        function validatePassword() {
-            const password = document.getElementById("password-input").value.trim();
-            if (password === "20/07/2001") {
-                Swal.fire({
-                    title: "Welcome!",
-                    text: "Let's go to the surprise page!",
-                    icon: "success",
-                    confirmButtonText: "Continue",
-                    confirmButtonColor: "#ff69b4"
-                }).then(() => {
-                    document.getElementById("login-section").classList.add("hidden");
-                    document.getElementById("home-section").classList.remove("hidden");
-                });
-            } else {
-                Swal.fire({
-                    title: "Incorrect Password!",
-                    text: "Please try again with the correct format (dd/mm/yyyy).",
-                    icon: "error",
-                    confirmButtonText: "Try Again",
-                    confirmButtonColor: "#ff69b4"
-                });
-            }
-        }
-    </script>
+      } else {
+        alert("You should enter your husband's name. 💖");
+      }
+    }
+  </script>
 </body>
 </html>
