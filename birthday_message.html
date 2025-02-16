@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday, Love! 🎂</title>
+  <title>Happy Birthday, Love! 🎂🎈</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #ffe0f7;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffdde1);
       text-align: center;
       padding: 50px;
       overflow: hidden;
       position: relative;
     }
+    
+    /* Title with Glow */
     h1 {
       color: #ff4081;
       font-size: 3.5rem;
       margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
+      animation: fadeIn 2s ease-in-out, glow 2s infinite alternate;
+      text-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
     }
+
+    /* Animated Glow Effect */
+    @keyframes glow {
+      from { text-shadow: 0 0 10px rgba(255, 64, 129, 0.8); }
+      to { text-shadow: 0 0 20px rgba(255, 64, 129, 1); }
+    }
+
     p {
       font-size: 1.5rem;
       color: #333;
@@ -26,6 +36,7 @@
       margin: 0 auto 20px;
       animation: fadeIn 3s ease-in-out;
     }
+
     .note-box {
       background-color: #fddde6;
       padding: 20px;
@@ -36,8 +47,23 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       animation: fadeIn 4s ease-in-out;
     }
-    audio {
-      margin-top: 20px;
+
+    /* Floating Hearts and Sparkles */
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
     }
 
     /* Floating Balloons */
@@ -49,6 +75,7 @@
       border-radius: 50%;
       animation: floatUp 6s linear infinite;
     }
+
     .balloon::before {
       content: "";
       position: absolute;
@@ -68,17 +95,6 @@
       animation: floatCake 5s ease-in-out infinite alternate, rotateCake 6s linear infinite;
     }
 
-    /* Keyframes */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes floatUp {
-      from { transform: translateY(100vh); }
-      to { transform: translateY(-100vh); }
-    }
-
     @keyframes floatCake {
       from { transform: translateY(20px); }
       to { transform: translateY(-20px); }
@@ -91,26 +107,37 @@
   </style>
 </head>
 <body>
-  <h1>Happy Birthday, Love! 🎉</h1>
+  <h1>🎂 Happy Birthday, Love! 🎉💖</h1>
   <p>You are the most wonderful person in my life, and I am so blessed to celebrate this special day with you. Here's to many more beautiful moments together! 🎂💕</p>
 
-  <div class="note-box">May your day be filled with love, joy, and countless reasons to smile! 🥰</div>
-  <div class="note-box">You make every day brighter. Thank you for being you! 🌟</div>
-  <div class="note-box">Happy Birthday, my love! Here's to forever together! ❤️</div>
+  <div class="note-box">🎈 May your day be filled with love, joy, and countless reasons to smile! 🥰</div>
+  <div class="note-box">✨ You make every day brighter. Thank you for being you! 🌟</div>
+  <div class="note-box">💖 Happy Birthday, my love! Here's to forever together! ❤️</div>
 
   <audio id="birthdaySong" autoplay>
     <source src="happy-birthday-254480.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Floating Balloons -->
+  <!-- Floating Elements Script -->
   <script>
+    function createEmoji() {
+      const emojiList = ["💖", "🎈", "✨", "🎂", "🥳", "❤️", "🌟"];
+      const emoji = document.createElement("div");
+      emoji.className = "emoji";
+      emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = 3 + Math.random() * 3 + "s";
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 6000);
+    }
+
     function createBalloon() {
       const balloon = document.createElement("div");
       balloon.className = "balloon";
       balloon.style.left = Math.random() * 100 + "vw";
       balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`; // Random colors
-      balloon.style.animationDuration = 4 + Math.random() * 3 + "s"; // Vary speed
+      balloon.style.animationDuration = 4 + Math.random() * 3 + "s";
       document.body.appendChild(balloon);
       setTimeout(() => balloon.remove(), 6000);
     }
@@ -124,9 +151,9 @@
       setTimeout(() => cake.remove(), 5000);
     }
 
-    setInterval(createBalloon, 800);
-    
-    setInterval(createCake, 3000);
+    setInterval(createEmoji, 700);
+    setInterval(createBalloon, 1000);
+    setInterval(createCake, 4000);
   </script>
 </body>
 </html>
