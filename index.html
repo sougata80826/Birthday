@@ -86,17 +86,52 @@
       const password = document.getElementById('password').value.trim();
 
       if (validUsernames.includes(username)) {
-        if (password === "17/02/2002" || password === "17022002") {
-          alert("Login successful! Welcome, love! 💕");
-          setTimeout(() => {
+    if (password === "17/02/2002" || password === "17022002") {
+        const messageDiv = document.createElement("div");
+        messageDiv.textContent = "Login successful! Welcome, love! 💕";
+        messageDiv.style.position = "fixed";
+        messageDiv.style.top = "50%";
+        messageDiv.style.left = "50%";
+        messageDiv.style.transform = "translate(-50%, -50%)";
+        messageDiv.style.background = "rgba(255, 182, 193, 0.9)";
+        messageDiv.style.padding = "15px";
+        messageDiv.style.borderRadius = "10px";
+        messageDiv.style.fontSize = "18px";
+        messageDiv.style.fontWeight = "bold";
+        messageDiv.style.color = "white";
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+            messageDiv.remove();
             window.location.href = "birthday_message.html";
-          }, 1000);
-        } else {
-          alert("Incorrect password! Hint: Your birthdate.");
-        }
-      } else {
-        alert("You should enter your husband's name. 💖");
-      }
+        }, 2000);
+    } else {
+        showTemporaryMessage("Incorrect password! Hint: Your birthdate.");
+    }
+} else {
+    showTemporaryMessage("You should enter your husband's name. 💖");
+}
+
+function showTemporaryMessage(message) {
+    const messageDiv = document.createElement("div");
+    messageDiv.textContent = message;
+    messageDiv.style.position = "fixed";
+    messageDiv.style.top = "50%";
+    messageDiv.style.left = "50%";
+    messageDiv.style.transform = "translate(-50%, -50%)";
+    messageDiv.style.background = "rgba(255, 99, 71, 0.9)";
+    messageDiv.style.padding = "15px";
+    messageDiv.style.borderRadius = "10px";
+    messageDiv.style.fontSize = "18px";
+    messageDiv.style.fontWeight = "bold";
+    messageDiv.style.color = "white";
+    document.body.appendChild(messageDiv);
+
+    setTimeout(() => {
+        messageDiv.remove();
+    }, 2000);
+}
+
     }
   </script>
 </body>
