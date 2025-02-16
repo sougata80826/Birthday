@@ -10,17 +10,21 @@
       background-color: #ffe0f7;
       text-align: center;
       padding: 50px;
+      overflow: hidden;
+      position: relative;
     }
     h1 {
       color: #ff4081;
       font-size: 3.5rem;
       margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
     }
     p {
       font-size: 1.5rem;
       color: #333;
       max-width: 600px;
       margin: 0 auto 20px;
+      animation: fadeIn 3s ease-in-out;
     }
     .note-box {
       background-color: #fddde6;
@@ -30,9 +34,59 @@
       max-width: 400px;
       font-size: 1.2rem;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 4s ease-in-out;
     }
     audio {
       margin-top: 20px;
+    }
+
+    /* Floating Balloons */
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background-color: red;
+      border-radius: 50%;
+      animation: floatUp 6s linear infinite;
+    }
+    .balloon::before {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 40px;
+      background-color: black;
+      top: 70px;
+      left: 50%;
+    }
+
+    /* Floating Cakes */
+    .cake {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: url('cake.png') no-repeat center/cover;
+      animation: floatCake 5s ease-in-out infinite alternate, rotateCake 6s linear infinite;
+    }
+
+    /* Keyframes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-100vh); }
+    }
+
+    @keyframes floatCake {
+      from { transform: translateY(20px); }
+      to { transform: translateY(-20px); }
+    }
+
+    @keyframes rotateCake {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -46,8 +100,32 @@
 
   <audio id="birthdaySong" autoplay>
     <source src="happy-birthday-254480.mp3" type="audio/mp3">
-     Your browser does not support the audio element.
+    Your browser does not support the audio element.
   </audio>
 
+  <!-- Floating Balloons -->
+  <script>
+    function createBalloon() {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * 100 + "vw";
+      balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`; // Random colors
+      balloon.style.animationDuration = 4 + Math.random() * 3 + "s"; // Vary speed
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 6000);
+    }
+
+    function createCake() {
+      const cake = document.createElement("div");
+      cake.className = "cake";
+      cake.style.left = Math.random() * 100 + "vw";
+      cake.style.top = Math.random() * 50 + "vh";
+      document.body.appendChild(cake);
+      setTimeout(() => cake.remove(), 5000);
+    }
+
+    setInterval(createBalloon, 800);
+    setInterval(createCake, 3000);
+  </script>
 </body>
 </html>
