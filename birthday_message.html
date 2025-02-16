@@ -51,7 +51,7 @@
     .floating {
       position: absolute;
       font-size: 2.5rem;
-      opacity: 0.6;
+      opacity: 0.8;
       animation: floatUp 7s linear infinite;
     }
 
@@ -112,6 +112,7 @@
       el.className = className;
       el.textContent = text;
       el.style.left = Math.random() * 100 + "vw";
+      el.style.top = Math.random() * 100 + "vh"; // Spread across full page
       el.style.animationDuration = 4 + Math.random() * 4 + "s";
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 7000);
@@ -131,7 +132,7 @@
       createElement("div", "gift", giftList[Math.floor(Math.random() * giftList.length)]);
     }
 
-    setInterval(createEmoji, 800);
+    setInterval(createEmoji, 500);
     setInterval(createBalloon, 1200);
     setInterval(createGift, 2500);
   </script>
