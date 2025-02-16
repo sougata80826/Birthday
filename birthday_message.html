@@ -23,7 +23,6 @@
       text-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
     }
 
-    /* Animated Glow Effect */
     @keyframes glow {
       from { text-shadow: 0 0 10px rgba(255, 64, 129, 0.8); }
       to { text-shadow: 0 0 20px rgba(255, 64, 129, 1); }
@@ -48,17 +47,12 @@
       animation: fadeIn 4s ease-in-out;
     }
 
-    /* Floating Hearts and Sparkles */
-    .emoji {
+    /* Floating Elements */
+    .floating {
       position: absolute;
-      font-size: 2rem;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      font-size: 2.5rem;
+      opacity: 0.6;
+      animation: floatUp 7s linear infinite;
     }
 
     @keyframes floatUp {
@@ -66,14 +60,14 @@
       to { transform: translateY(-10vh); opacity: 0; }
     }
 
-    /* Floating Balloons */
+    /* Balloons */
     .balloon {
       position: absolute;
       width: 50px;
       height: 70px;
       background-color: red;
       border-radius: 50%;
-      animation: floatUp 6s linear infinite;
+      animation: floatUp 8s linear infinite;
     }
 
     .balloon::before {
@@ -86,23 +80,16 @@
       left: 50%;
     }
 
-    /* Floating Cakes */
-    .cake {
+    /* Floating Gifts */
+    .gift {
       position: absolute;
-      width: 80px;
-      height: 80px;
-      background: url('cake.png') no-repeat center/cover;
-      animation: floatCake 5s ease-in-out infinite alternate, rotateCake 6s linear infinite;
+      font-size: 3rem;
+      animation: floatGift 5s ease-in-out infinite alternate;
     }
 
-    @keyframes floatCake {
-      from { transform: translateY(20px); }
-      to { transform: translateY(-20px); }
-    }
-
-    @keyframes rotateCake {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    @keyframes floatGift {
+      from { transform: translateY(10px); }
+      to { transform: translateY(-10px); }
     }
   </style>
 </head>
@@ -119,41 +106,34 @@
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Floating Elements Script -->
   <script>
+    function createElement(type, className, text) {
+      const el = document.createElement("div");
+      el.className = className;
+      el.textContent = text;
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
+    }
+
     function createEmoji() {
-      const emojiList = ["💖", "🎈", "✨", "🎂", "🥳", "❤️", "🌟"];
-      const emoji = document.createElement("div");
-      emoji.className = "emoji";
-      emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-      emoji.style.left = Math.random() * 100 + "vw";
-      emoji.style.animationDuration = 3 + Math.random() * 3 + "s";
-      document.body.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 6000);
+      const emojiList = ["💖", "🎈", "✨", "🎂", "🥳", "❤️", "🌟", "🎁"];
+      createElement("div", "floating", emojiList[Math.floor(Math.random() * emojiList.length)]);
     }
 
     function createBalloon() {
-      const balloon = document.createElement("div");
-      balloon.className = "balloon";
-      balloon.style.left = Math.random() * 100 + "vw";
-      balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`; // Random colors
-      balloon.style.animationDuration = 4 + Math.random() * 3 + "s";
-      document.body.appendChild(balloon);
-      setTimeout(() => balloon.remove(), 6000);
+      createElement("div", "balloon", "");
     }
 
-    function createCake() {
-      const cake = document.createElement("div");
-      cake.className = "cake";
-      cake.style.left = Math.random() * 100 + "vw";
-      cake.style.top = Math.random() * 50 + "vh";
-      document.body.appendChild(cake);
-      setTimeout(() => cake.remove(), 5000);
+    function createGift() {
+      const giftList = ["🎁", "🎊", "🎉"];
+      createElement("div", "gift", giftList[Math.floor(Math.random() * giftList.length)]);
     }
 
-    setInterval(createEmoji, 700);
-    setInterval(createBalloon, 1000);
-    setInterval(createCake, 4000);
+    setInterval(createEmoji, 800);
+    setInterval(createBalloon, 1200);
+    setInterval(createGift, 2500);
   </script>
 </body>
 </html>
