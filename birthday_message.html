@@ -13,8 +13,8 @@
       overflow: hidden;
       position: relative;
     }
-    
-    /* Title with Glow */
+
+    /* Title */
     h1 {
       color: #ff4081;
       font-size: 3.5rem;
@@ -23,28 +23,32 @@
       text-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
     }
 
+    /* Floating Effects */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes glow {
       from { text-shadow: 0 0 10px rgba(255, 64, 129, 0.8); }
       to { text-shadow: 0 0 20px rgba(255, 64, 129, 1); }
     }
 
-    p {
-      font-size: 1.5rem;
-      color: #333;
-      max-width: 600px;
-      margin: 0 auto 20px;
-      animation: fadeIn 3s ease-in-out;
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
     }
 
-    .note-box {
-      background-color: #fddde6;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px auto;
-      max-width: 400px;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 4s ease-in-out;
+    @keyframes gentleFloat {
+      from { transform: translateY(5px); }
+      to { transform: translateY(-5px); }
+    }
+
+    /* Fixed Emojis (Random Placement) */
+    .fixed-emoji {
+      position: absolute;
+      font-size: 3rem;
+      animation: gentleFloat 3s ease-in-out infinite alternate;
     }
 
     /* Floating Elements */
@@ -54,60 +58,6 @@
       opacity: 0.8;
       animation: floatUp 7s linear infinite;
     }
-
-    @keyframes floatUp {
-      from { transform: translateY(100vh); opacity: 1; }
-      to { transform: translateY(-10vh); opacity: 0; }
-    }
-
-    /* Balloons */
-    .balloon {
-      position: absolute;
-      width: 50px;
-      height: 70px;
-      background-color: red;
-      border-radius: 50%;
-      animation: floatUp 8s linear infinite;
-    }
-
-    .balloon::before {
-      content: "";
-      position: absolute;
-      width: 2px;
-      height: 40px;
-      background-color: black;
-      top: 70px;
-      left: 50%;
-    }
-
-    /* Floating Gifts */
-    .gift {
-      position: absolute;
-      font-size: 3rem;
-      animation: floatGift 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatGift {
-      from { transform: translateY(10px); }
-      to { transform: translateY(-10px); }
-    }
-
-    /* Stationary Cakes (with a gentle floating effect) */
-    .stationary-cake {
-      position: absolute;
-      font-size: 4rem;
-      animation: gentleFloat 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes gentleFloat {
-      from { transform: translateY(5px); }
-      to { transform: translateY(-5px); }
-    }
-
-    /* Positioning stationary cakes on the page */
-    .cake1 { left: 20%; top: 60%; }
-    .cake2 { left: 50%; top: 70%; }
-    .cake3 { left: 80%; top: 65%; }
 
   </style>
 </head>
@@ -124,18 +74,29 @@
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Stationary Cakes -->
-  <div class="stationary-cake cake1">🎂</div>
-  <div class="stationary-cake cake2">🎂</div>
-  <div class="stationary-cake cake3">🎂</div>
-
   <script>
-    function createElement(type, className, text) {
+    // List of Fixed Emojis (14 total)
+    const fixedEmojis = ["🎂", "🎁", "🌈", "💖", "🥳", "🎈", "✨", "❤️", "🍰", "🎊", "🎉", "🍭", "🎶", "🎀"];
+    
+    // Add 14 Fixed Emojis to Random Positions
+    fixedEmojis.forEach((emoji, index) => {
+      const element = document.createElement("div");
+      element.className = "fixed-emoji";
+      element.textContent = emoji;
+      
+      // Random position on full page
+      element.style.left = Math.random() * 90 + "vw";
+      element.style.top = Math.random() * 90 + "vh";
+
+      document.body.appendChild(element);
+    });
+
+    // Floating Elements Generator
+    function createFloatingElement(type, className, text) {
       const el = document.createElement("div");
       el.className = className;
       el.textContent = text;
       el.style.left = Math.random() * 100 + "vw";
-      el.style.top = Math.random() * 100 + "vh"; // Spread across full page
       el.style.animationDuration = 4 + Math.random() * 4 + "s";
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 7000);
@@ -143,16 +104,15 @@
 
     function createEmoji() {
       const emojiList = ["💖", "🎈", "✨", "🎂", "🥳", "❤️", "🌟", "🎁"];
-      createElement("div", "floating", emojiList[Math.floor(Math.random() * emojiList.length)]);
+      createFloatingElement("div", "floating", emojiList[Math.floor(Math.random() * emojiList.length)]);
     }
 
     function createBalloon() {
-      createElement("div", "balloon", "");
+      createFloatingElement("div", "floating", "🎈");
     }
 
     function createGift() {
-      const giftList = ["🎁", "🎊", "🎉"];
-      createElement("div", "gift", giftList[Math.floor(Math.random() * giftList.length)]);
+      createFloatingElement("div", "floating", "🎁");
     }
 
     setInterval(createEmoji, 500);
